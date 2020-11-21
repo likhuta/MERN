@@ -6,7 +6,7 @@ import './NewPlace.css'
 const NewPlace = (props) => {
   return (
     <form className="place-form">
-      <Input type="text" label="Title" element="input" />
+      <Input type="text" label="Title" element="input" errorText="Please enter a valid value" />
     </form>
   )
 };
