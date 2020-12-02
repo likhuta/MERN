@@ -1,24 +1,7 @@
 const HttpError = require('../models/http-error');
-const { v4: uuidv4 } = require('uuid');
 const { validationResult } = require("express-validator");
 const User = require('../models/user');
-const place = require('../models/place');
 
-const DUMMY_USERS = [
-  {
-    id: 'u1',
-    name: 'Max Schwarz',
-    email: 'tester',
-    password: 'test'
-  },
-  {
-    id: 'u2',
-    name: 'Ivan Petrov',
-    email: 'tester',
-    password: 'test'
-  }
-
-];
 
 const getUsers = async(req, res, next) => {
   let users;
@@ -71,8 +54,6 @@ const signup = async (req, res, next) => {
     const error = new HttpError("Signing up failed, pleace try again", 500);
     return next(error);
   }
-
-
   res.status(201).json({user: createdUser.toObject({getters: true})});
 }
 
@@ -92,9 +73,7 @@ const login = async(req, res, next) => {
     const error = new HttpError('Invalid credetials, could not log you in ', 500);
     return next(error);
   }
-
   res.json({message: 'Logged in'})
-
 }
 
 exports.getUsers = getUsers;
