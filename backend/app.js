@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const placesRoutes = require('./routes/places-routes');
 const usersRoures = require('./routes/users-routes');
 const HttpError = require('./models/http-error');
 
+const urlDB = `mongodb+srv://user:user@gettingstarted.ke44j.mongodb.net/places?retryWrites=true&w=majority`
 const app = express();
 
 app.use(bodyParser.json());
@@ -25,4 +27,10 @@ app.use((error, req,res, next) => {
   res.json({message: error.message || 'An unknown error occured! '});
 });
 
-app.listen(5000);
+
+mongoose.connect(urlDB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }).then(() => {
+  console.log('Start App');
+  app.listen(5000);
+}).catch((error) => {
+  console.log(error)
+})
