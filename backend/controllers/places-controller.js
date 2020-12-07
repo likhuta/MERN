@@ -90,6 +90,7 @@ const createPlace = async (req, res, next) => {
 
   try {
     // await createdPlace.save();
+    // if collection was created
     const sess = await mongoose.startSession();
     sess.startTransaction();
     await createdPlace.save({session: sess});
