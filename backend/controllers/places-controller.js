@@ -1,3 +1,4 @@
+const fs = require('fs');
 const HttpError = require("../models/http-error");
 const { v4: uuidv4 } = require("uuid");
 const { validationResult } = require("express-validator");
@@ -67,7 +68,7 @@ const createPlace = async (req, res, next) => {
     description,
     address,
     location: coordinates,
-    image: "smth_dtrinh",
+    image: req.file.path,
     creator,
   });
 
@@ -152,6 +153,7 @@ const deletePlaceById = async(req, res, next) => {
     return next(error);
   }
 
+  const imagePath = place.image;
 
   try {
     // await place.remove();
@@ -167,6 +169,10 @@ const deletePlaceById = async(req, res, next) => {
     return next(error);
   }
 
+  fs.unlink(imagePath, err => {
+    console.log(err);
+  });
+  
   res.status(200).json({ message: "Deletes succefully!" });
 };
 
