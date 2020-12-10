@@ -56,7 +56,10 @@ const NewPlace = (props) => {
       await sendRequest(
         "http://localhost:5000/api/places",
         "POST",
-        formData
+        formData,
+        {
+          Authorization: `Bearer ${auth.token}`
+        }
       );
       history.push("/");
       // redirect different page
